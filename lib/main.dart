@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_countries_app/Continents.dart';
+import 'package:flutter_countries_app/my_home_page.dart';
 
 void main() {
   runApp(const MyApp());
