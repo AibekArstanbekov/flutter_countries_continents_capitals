@@ -3,6 +3,7 @@ import 'package:flutter_countries_app/fuetures/app_text.dart';
 import 'package:flutter_countries_app/fuetures/app_texts.dart';
 import 'package:flutter_countries_app/fuetures/model.dart';
 import 'package:flutter_countries_app/fuetures/widgets/line_divider.dart';
+import 'package:flutter_countries_app/theme/app_colors.dart';
 
 class MyHomePage extends StatelessWidget {
   const MyHomePage({super.key});
@@ -10,6 +11,7 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.backgroundColor,
       appBar: myAppBar(),
       body: Column(
         children: [
@@ -17,13 +19,17 @@ class MyHomePage extends StatelessWidget {
           Expanded(
             child: GridView.count(
               primary: false,
-              padding: const EdgeInsets.all(20),
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
+              padding: const EdgeInsets.all(10),
+              crossAxisSpacing: 25,
+              mainAxisSpacing: 60,
               crossAxisCount: 2,
               children: List.generate(6, (index) {
                 final continent = continentsList[index];
-                return CardWidget(continent.text);
+                return CardWidget(
+                  onTap: () {},
+                  continent.text,
+                  continent.image,
+                );
               }),
             ),
           ),
@@ -46,15 +52,29 @@ class MyHomePage extends StatelessWidget {
 }
 
 class CardWidget extends StatelessWidget {
-  const CardWidget(this.text, {super.key});
+  const CardWidget(this.text, this.image, {super.key, this.onTap});
   final String text;
+  final String image;
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(8),
-      color: Colors.teal[400],
-      child: appText.title(text),
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.all(10),
+        color: AppColors.backgroundColor,
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              appText.title(text),
+              Image.asset(image, width: 132, height: 160),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
